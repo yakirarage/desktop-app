@@ -1,6 +1,6 @@
 from json import tool
 import sys
-from PyQt6.QtWidgets import (QMainWindow, QApplication, QLabel, QToolBar, QStatusBar, QCheckBox)
+from PyQt6.QtWidgets import (QPushButton, QMainWindow, QApplication, QLabel, QToolBar, QStatusBar, QCheckBox)
 from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtCore import Qt
 
@@ -11,10 +11,12 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("My Awesome App")
 
-        label = QLabel("Hello!")
-        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.setCentralWidget(label)
+        button = QPushButton("press me!")
+        button.setFixedSize(200, 150)
+        button.setCheckable(True)
+        button.clicked.connect(self.the_button_was_clicked)
+        self.setFixedSize(400, 300)
+        self.setCentralWidget(button)
 
         toolbar = QToolBar("my main toolbar")
         self.addToolBar(toolbar)
@@ -41,6 +43,9 @@ class MainWindow(QMainWindow):
 
     def onMyToolBarButtonClick(self, s):
         print("Click", s)
+
+    def the_button_was_clicked(self):
+        print("clicked")
 
 
 app = QApplication(sys.argv)
